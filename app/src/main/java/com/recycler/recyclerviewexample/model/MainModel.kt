@@ -26,18 +26,23 @@ class MainModel(private val cnx: Context, private val binding: ActivityMainBindi
         dataset.add(RCDto("3반", "퇴근시켜줘"))
     }
 
+    private fun addData(){
+        dataset.add(RCDto("4번", "밥은 최고야"))
+        dataset.add(RCDto("5번", "추가된 레이아웃"))
+    }
+
     fun onClickEventbyNotfy(){
-        binding.addButton.isetOnClickListener {
-            if(flag) {
-                //이미지 추가하기
-                dataset.add(RCDto("4번", "밥은 최고야"))
-                dataset.add(RCDto("5번", "추가된 레이아웃"))
-                adapter.notifyItemChanged(3)
-//                adapter.notifyItemRangeChanged(3, 2)
-//                adapter.notifyDataSetChanged()
-                binding.recycler.adapter = adapter
-                flag = false
-            }
+        addData()
+        binding.addButton.setOnClickListener {
+            //TODO 이미지 추가하기
+            adapter.notifyItemChanged(3)
+            binding.recycler.adapter = adapter
+        }
+    }
+
+    fun onClickEventbyDiffUtil(){
+        binding.addButton.setOnClickListener {
+
         }
     }
 }
