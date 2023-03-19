@@ -29,12 +29,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun initRecycler(){
         mainModel.apply {
-            initAdapter()
             setData()
+            initDiffAdapter()
         }
     }
 
     private fun setOnClick(){
-        mainModel.onClickEventbyNotfy()
+        mainModel.onClickEventbyDiffUtil()
     }
 }

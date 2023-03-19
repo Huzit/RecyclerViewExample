@@ -1,10 +1,12 @@
 package com.recycler.recyclerviewexample.model
 
 import android.content.Context
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.recycler.recyclerviewexample.MainActivity
 import com.recycler.recyclerviewexample.R
+import com.recycler.recyclerviewexample.adapter.DiffUtilAdapter
 import com.recycler.recyclerviewexample.adapter.MainAdapter
 import com.recycler.recyclerviewexample.databinding.ActivityMainBinding
 import com.recycler.recyclerviewexample.dto.RCDto
@@ -12,11 +14,19 @@ import com.recycler.recyclerviewexample.dto.RCDto
 class MainModel(private val cnx: Context, private val binding: ActivityMainBinding) {
 
     private val dataset = ArrayList<RCDto>()
+    
     private var adapter = MainAdapter(dataset, cnx)
+    private var diffAdapter = DiffUtilAdapter(dataset, cnx)
+    
     private var flag = true
-
+    //일반 어댑터
     fun initAdapter(){
         binding.recycler.adapter = adapter
+        binding.recycler.layoutManager = LinearLayoutManager(cnx)
+    }
+    //DiffUtil을 이용한 어댑터
+    fun initDiffAdapter(){
+        binding.recycler.adapter = diffAdapter
         binding.recycler.layoutManager = LinearLayoutManager(cnx)
     }
 
@@ -30,22 +40,26 @@ class MainModel(private val cnx: Context, private val binding: ActivityMainBindi
         dataset.add(RCDto(R.drawable.pic4, "4", "밥은 최고야"))
         dataset.add(RCDto(R.drawable.pic5, "5", "추가된 레이아웃"))
     }
-
+    //기본 notify 메서드를 이용한 업데이트
     fun onClickEventbyNotfy(){
         binding.addButton.setOnClickListener {
             if(flag) {
                 addData()
-                //TODO 이미지 추가하기
                 adapter.notifyItemChanged(3)
                 binding.recycler.adapter = adapter
                 flag = false
             }
         }
     }
-
+    //DiffUtil을 이용한 업데이트
     fun onClickEventbyDiffUtil(){
         binding.addButton.setOnClickListener {
-
+            if(flag) {
+                addData()
+                diffAdapter.updateListItem(ArrayList(dataset))
+                binding.recycler.adapter = diffAdapter
+                flag = false
+            }
         }
     }
 }
