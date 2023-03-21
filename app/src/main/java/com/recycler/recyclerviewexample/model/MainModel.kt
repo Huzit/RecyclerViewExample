@@ -3,8 +3,6 @@ package com.recycler.recyclerviewexample.model
 import android.content.Context
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.recycler.recyclerviewexample.MainActivity
 import com.recycler.recyclerviewexample.R
 import com.recycler.recyclerviewexample.adapter.AsyncListDifferAdapter
 import com.recycler.recyclerviewexample.adapter.DiffUtilAdapter
@@ -29,12 +27,14 @@ class MainModel(private val cnx: Context, private val binding: ActivityMainBindi
     }
     //DiffUtil을 이용한 어댑터
     fun initDiffAdapter(){
-        diffAdapter = DiffUtilAdapter(ArrayList<RCDto>(dataset))
+        diffAdapter = DiffUtilAdapter(dataset)
         binding.recycler.adapter = diffAdapter
         binding.recycler.layoutManager = LinearLayoutManager(cnx)
     }
+    //
     fun initAsyncListDifferAdapter(){
-        asyncListDifferAdapter = AsyncListDifferAdapter(ArrayList<RCDto>(dataset))
+        asyncListDifferAdapter = AsyncListDifferAdapter()
+        asyncListDifferAdapter.submitList(ArrayList(dataset))
         binding.recycler.adapter = asyncListDifferAdapter
         binding.recycler.layoutManager = LinearLayoutManager(cnx)
     }
@@ -64,7 +64,7 @@ class MainModel(private val cnx: Context, private val binding: ActivityMainBindi
         binding.addButton.setOnClickListener {
             if(flag) {
                 addData()
-                diffAdapter.updateListItem(dataset)
+                diffAdapter.updateListItem(ArrayList(dataset))
                 flag = false
             }
         }
@@ -74,7 +74,7 @@ class MainModel(private val cnx: Context, private val binding: ActivityMainBindi
         binding.addButton.setOnClickListener {
             if(flag){
                 addData()
-                asyncListDifferAdapter.submitlist(dataset)
+                asyncListDifferAdapter.submitList(ArrayList(dataset))
                 flag = false
             }
         }
