@@ -16,7 +16,7 @@ class MainModel(private val cnx: Context, private val binding: ActivityMainBindi
     
     private lateinit var adapter : MainAdapter
     private lateinit var diffAdapter : DiffUtilAdapter
-    private lateinit var asyncListDifferAdapter : AsyncListDifferAdapter
+    private var asyncListDifferAdapter = AsyncListDifferAdapter()
     
     private var flag = true
     //일반 어댑터
@@ -27,13 +27,12 @@ class MainModel(private val cnx: Context, private val binding: ActivityMainBindi
     }
     //DiffUtil을 이용한 어댑터
     fun initDiffAdapter(){
-        diffAdapter = DiffUtilAdapter(dataset)
+        diffAdapter = DiffUtilAdapter(ArrayList(dataset))
         binding.recycler.adapter = diffAdapter
         binding.recycler.layoutManager = LinearLayoutManager(cnx)
     }
     //
     fun initAsyncListDifferAdapter(){
-        asyncListDifferAdapter = AsyncListDifferAdapter()
         asyncListDifferAdapter.submitList(ArrayList(dataset))
         binding.recycler.adapter = asyncListDifferAdapter
         binding.recycler.layoutManager = LinearLayoutManager(cnx)

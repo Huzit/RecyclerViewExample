@@ -22,13 +22,11 @@ class DiffUtilAdapter(val dataset: ArrayList<RCDto>): RecyclerView.Adapter<DiffU
     }
     //뷰 그룹의 뷰를 뷰 홀더를 넣어줌
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
-        Log.d(javaClass.simpleName, "ViewHolder is Created")
         val view = LayoutInflater.from(parent.context).inflate(R.layout.viewholder_main, parent, false)
         return MainViewHolder(view)
     }
     //뷰 홀더에 데이터 셋팅
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        Log.d("flkdsjlfksj", dataset[position].toString())
         Glide.with(holder.itemView.context)
             .load(dataset[position].image)
             .into(holder.binding.vhImage)
