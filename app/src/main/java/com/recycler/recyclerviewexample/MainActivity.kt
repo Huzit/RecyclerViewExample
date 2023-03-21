@@ -28,13 +28,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecycler(){
-        mainModel.apply {
-            setData()
-            initDiffAdapter()
-        }
+        mainModel.setData()
+        mainModel.initAsyncListDifferAdapter()
     }
 
     private fun setOnClick(){
-        mainModel.onClickEventbyDiffUtil()
+        mainModel.onClickEventByAsyncListDiffer()
     }
 }

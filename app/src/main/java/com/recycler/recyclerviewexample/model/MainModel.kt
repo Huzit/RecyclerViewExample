@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.recycler.recyclerviewexample.MainActivity
 import com.recycler.recyclerviewexample.R
+import com.recycler.recyclerviewexample.adapter.AsyncListDifferAdapter
 import com.recycler.recyclerviewexample.adapter.DiffUtilAdapter
 import com.recycler.recyclerviewexample.adapter.MainAdapter
 import com.recycler.recyclerviewexample.databinding.ActivityMainBinding
@@ -16,7 +17,8 @@ class MainModel(private val cnx: Context, private val binding: ActivityMainBindi
     private val dataset = ArrayList<RCDto>()
     
     private var adapter = MainAdapter(dataset, cnx)
-    private var diffAdapter = DiffUtilAdapter(dataset, cnx)
+    private lateinit var diffAdapter: DiffUtilAdapter
+    private lateinit var asyncListDifferAdapter: AsyncListDifferAdapter
     
     private var flag = true
     //일반 어댑터
@@ -26,8 +28,15 @@ class MainModel(private val cnx: Context, private val binding: ActivityMainBindi
     }
     //DiffUtil을 이용한 어댑터
     fun initDiffAdapter(){
+        diffAdapter = DiffUtilAdapter(dataset, cnx)
         binding.recycler.adapter = diffAdapter
         binding.recycler.layoutManager = LinearLayoutManager(cnx)
+    }
+    //초기 상태가 반영안됨
+    fun initAsyncListDifferAdapter(){
+        asyncListDifferAdapter = AsyncListDifferAdapter(ArrayList(dataset), cnx)
+        binding.recycler.layoutManager = LinearLayoutManager(cnx)
+        binding.recycler.adapter = asyncListDifferAdapter
     }
 
     fun setData(){
@@ -57,7 +66,17 @@ class MainModel(private val cnx: Context, private val binding: ActivityMainBindi
             if(flag) {
                 addData()
                 diffAdapter.updateListItem(ArrayList(dataset))
-                binding.recycler.adapter = diffAdapter
+//                binding.recycler.adapter = diffAdapter
+                flag = false
+            }
+        }
+    }
+    //AsyncListDiffer를 이용한 업데이트
+    fun onClickEventByAsyncListDiffer(){
+        binding.addButton.setOnClickListener {
+            if(flag){
+                addData()
+                asyncListDifferAdapter.submitlist(ArrayList(dataset))
                 flag = false
             }
         }
