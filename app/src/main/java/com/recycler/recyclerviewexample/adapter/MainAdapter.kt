@@ -12,7 +12,7 @@ import com.recycler.recyclerviewexample.databinding.ViewholderMainBinding
 import com.recycler.recyclerviewexample.dto.RCDto
 import kotlin.coroutines.coroutineContext
 
-class MainAdapter(val dataset: ArrayList<RCDto>, val cnx: Context): RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
+class MainAdapter(val dataset: ArrayList<RCDto>): RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
     inner class MainViewHolder(view: View): RecyclerView.ViewHolder(view){
         var binding: ViewholderMainBinding

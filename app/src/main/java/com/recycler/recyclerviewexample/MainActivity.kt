@@ -2,6 +2,7 @@ package com.recycler.recyclerviewexample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.recycler.recyclerviewexample.adapter.MainAdapter
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initRecycler(){
         mainModel.setData()
-        mainModel.initAsyncListDifferAdapter()
+        mainModel.initAdapter()
     }
 
     private fun setOnClick(){

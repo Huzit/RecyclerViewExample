@@ -16,27 +16,30 @@ class MainModel(private val cnx: Context, private val binding: ActivityMainBindi
 
     private val dataset = ArrayList<RCDto>()
     
-    private var adapter = MainAdapter(dataset, cnx)
-    private lateinit var diffAdapter: DiffUtilAdapter
-    private lateinit var asyncListDifferAdapter: AsyncListDifferAdapter
+    var adapter = MainAdapter(dataset)
+    private lateinit var diffAdapter : DiffUtilAdapter
+    private lateinit var asyncListDifferAdapter : AsyncListDifferAdapter
     
     private var flag = true
     //일반 어댑터
     fun initAdapter(){
+        //여기선 3개로 잡힘
         binding.recycler.adapter = adapter
         binding.recycler.layoutManager = LinearLayoutManager(cnx)
     }
     //DiffUtil을 이용한 어댑터
     fun initDiffAdapter(){
-        diffAdapter = DiffUtilAdapter(dataset, cnx)
+    //adapter로 dataset이 안넘어감
+        diffAdapter = DiffUtilAdapter(ArrayList<RCDto>(dataset))
         binding.recycler.adapter = diffAdapter
         binding.recycler.layoutManager = LinearLayoutManager(cnx)
     }
     //초기 상태가 반영안됨
     fun initAsyncListDifferAdapter(){
-        asyncListDifferAdapter = AsyncListDifferAdapter(ArrayList(dataset), cnx)
-        binding.recycler.layoutManager = LinearLayoutManager(cnx)
+        asyncListDifferAdapter = AsyncListDifferAdapter(ArrayList<RCDto>(dataset))
+        Log.d(javaClass.simpleName, asyncListDifferAdapter.itemCount.toString())
         binding.recycler.adapter = asyncListDifferAdapter
+        binding.recycler.layoutManager = LinearLayoutManager(cnx)
     }
 
     fun setData(){
@@ -65,8 +68,7 @@ class MainModel(private val cnx: Context, private val binding: ActivityMainBindi
         binding.addButton.setOnClickListener {
             if(flag) {
                 addData()
-                diffAdapter.updateListItem(ArrayList(dataset))
-//                binding.recycler.adapter = diffAdapter
+                diffAdapter.updateListItem(dataset)
                 flag = false
             }
         }
@@ -76,7 +78,7 @@ class MainModel(private val cnx: Context, private val binding: ActivityMainBindi
         binding.addButton.setOnClickListener {
             if(flag){
                 addData()
-                asyncListDifferAdapter.submitlist(ArrayList(dataset))
+                asyncListDifferAdapter.submitlist(dataset)
                 flag = false
             }
         }

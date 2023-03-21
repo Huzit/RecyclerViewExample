@@ -13,7 +13,7 @@ import com.recycler.recyclerviewexample.R
 import com.recycler.recyclerviewexample.databinding.ViewholderMainBinding
 import com.recycler.recyclerviewexample.dto.RCDto
 
-class AsyncListDifferAdapter(private val dataset: ArrayList<RCDto>, val cnx: Context): RecyclerView.Adapter<AsyncListDifferAdapter.MainViewHolder>() {
+class AsyncListDifferAdapter(val dataset: ArrayList<RCDto>): RecyclerView.Adapter<AsyncListDifferAdapter.MainViewHolder>() {
     //AsyncListDiffer 정의
     private var mDiffer: AsyncListDiffer<RCDto> = AsyncListDiffer(this, DiffUtilItemCallBack())
 
@@ -40,11 +40,13 @@ class AsyncListDifferAdapter(private val dataset: ArrayList<RCDto>, val cnx: Con
 
     //뷰 그룹의 뷰를 뷰 홀더를 넣어줌
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
+        Log.d("ddkfjlsdjlskfdj", "ONcreated")
         val view = LayoutInflater.from(parent.context).inflate(R.layout.viewholder_main, parent, false)
         return MainViewHolder(view)
     }
     //뷰 홀더에 데이터 셋팅
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
+        Log.d("flkdsjlfksj", dataset[position].toString())
         holder.bind(dataset[position])
     }
 
