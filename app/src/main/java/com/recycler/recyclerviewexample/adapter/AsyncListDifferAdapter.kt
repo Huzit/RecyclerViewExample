@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.recycler.recyclerviewexample.R
+import com.recycler.recyclerviewexample.callback.DiffUtilItemCallBack
 import com.recycler.recyclerviewexample.databinding.ViewholderMainBinding
 import com.recycler.recyclerviewexample.dto.RCDto
 

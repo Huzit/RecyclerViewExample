@@ -7,6 +7,7 @@ import com.recycler.recyclerviewexample.R
 import com.recycler.recyclerviewexample.adapter.AsyncListDifferAdapter
 import com.recycler.recyclerviewexample.adapter.DiffUtilAdapter
 import com.recycler.recyclerviewexample.adapter.MainAdapter
+import com.recycler.recyclerviewexample.adapter.RecyclerListAdapter
 import com.recycler.recyclerviewexample.databinding.ActivityMainBinding
 import com.recycler.recyclerviewexample.dto.RCDto
 
@@ -17,6 +18,7 @@ class MainModel(private val cnx: Context, private val binding: ActivityMainBindi
     private lateinit var adapter : MainAdapter
     private lateinit var diffAdapter : DiffUtilAdapter
     private var asyncListDifferAdapter = AsyncListDifferAdapter()
+    private var rcListAdapter = RecyclerListAdapter()
     
     private var flag = true
     //일반 어댑터
@@ -31,10 +33,16 @@ class MainModel(private val cnx: Context, private val binding: ActivityMainBindi
         binding.recycler.adapter = diffAdapter
         binding.recycler.layoutManager = LinearLayoutManager(cnx)
     }
-    //
+    //AsyncListDiffer
     fun initAsyncListDifferAdapter(){
         asyncListDifferAdapter.submitList(ArrayList(dataset))
         binding.recycler.adapter = asyncListDifferAdapter
+        binding.recycler.layoutManager = LinearLayoutManager(cnx)
+    }
+    //ListAdapter
+    fun initListAdapter(){
+        rcListAdapter.submitList(ArrayList(dataset))
+        binding.recycler.adapter = rcListAdapter
         binding.recycler.layoutManager = LinearLayoutManager(cnx)
     }
 
@@ -74,6 +82,16 @@ class MainModel(private val cnx: Context, private val binding: ActivityMainBindi
             if(flag){
                 addData()
                 asyncListDifferAdapter.submitList(ArrayList(dataset))
+                flag = false
+            }
+        }
+    }
+    //ListAdapter
+    fun onClickEventByListAdapter(){
+        binding.addButton.setOnClickListener {
+            if(flag){
+                addData()
+                rcListAdapter.submitList(ArrayList(dataset))
                 flag = false
             }
         }

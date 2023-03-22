@@ -1,4 +1,4 @@
-package com.recycler.recyclerviewexample.adapter
+package com.recycler.recyclerviewexample.callback
 
 import androidx.recyclerview.widget.DiffUtil
 import com.recycler.recyclerviewexample.dto.RCDto

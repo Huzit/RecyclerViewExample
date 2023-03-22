@@ -1,7 +1,5 @@
 package com.recycler.recyclerviewexample.adapter
 
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.recycler.recyclerviewexample.R
+import com.recycler.recyclerviewexample.callback.DiffUtilCallBack
 import com.recycler.recyclerviewexample.databinding.ViewholderMainBinding
 import com.recycler.recyclerviewexample.dto.RCDto
 

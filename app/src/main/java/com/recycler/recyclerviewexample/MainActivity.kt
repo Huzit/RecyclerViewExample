@@ -30,10 +30,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun initRecycler(){
         mainModel.setData()
-        mainModel.initAsyncListDifferAdapter()
+        mainModel.initListAdapter()
     }
 
     private fun setOnClick(){
-        mainModel.onClickEventByAsyncListDiffer()
+        mainModel.onClickEventByListAdapter()
     }
 }
